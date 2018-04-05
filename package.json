@@ -1,0 +1,26 @@
+{
+  "name": "tiny-html-lexer",
+  "version": "0.8.0",
+  "description": "A tiny HTML5 lexer",
+  "main": "lib/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "lexer",
+    "chunker",
+    "tokenizer",
+    "html",
+    "html5",
+    "standard"
+  ],
+  "author": "Alwin Blok",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alwinb/tiny-html-lexer"
+  }
+}

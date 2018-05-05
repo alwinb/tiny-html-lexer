@@ -21,6 +21,14 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/alwinb/tiny-html-lexer"
+    "url": "git+https://github.com/alwinb/tiny-html-lexer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/alwinb/tiny-html-lexer/issues"
+  },
+  "homepage": "https://github.com/alwinb/tiny-html-lexer#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "tagscript": "^0.2.0"
   }
 }

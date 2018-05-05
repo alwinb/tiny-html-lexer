@@ -1,7 +1,7 @@
 "use strict"
 
 const tokenize = require ('../lib/tiny-lexer')
-  , data = require ('./data/html')
+  , data = require ('./data/samples')
   , { head, renderTokens, flush, flatten } = require ('./templates')
 
 const log = console.log.bind (console)
@@ -22,5 +22,5 @@ function map (fn) { return function* (obj) {
 // ====
 
 let samples = data.samples.concat (data.EOFSamples)
-compose (flush, flatten, head ('file://'+__dirname+'/style/tokens.css?ao'), map (renderTokens), map (tokenize)) (samples)
+compose (flush, head ('file://'+__dirname+'/style/tokens.css?ao'), map (renderTokens), map (tokenize)) (samples)
 

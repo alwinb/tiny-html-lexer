@@ -21,7 +21,7 @@ Simply, one top level function `chunks` that returns an iterator.
 	  let tinyhtml = require ('tiny-html-lexer')
 	  let stream = tinyhtml.chunks ('<span>Hello, world</span>')
 	  for (let chunk of stream)
-		    console.log (stream)
+		    console.log (chunk)
 
 Alternatively, without `for .. of`:
 
@@ -33,8 +33,7 @@ Alternatively, without `for .. of`:
 
 Each call to `next ()` mutates and returns the iterator object itself, 
 rather than the usual separate `{ value, done }` objects. It seems superfluous 
-to create new wrapper objects `{ value, done }` for each chunk, so I went with
-this instead. 
+to create new wrapper objects for each chunk, so I went with this instead. 
 
 Tokens are tuples (arrays) `[type, chunk]` where type is one of
 

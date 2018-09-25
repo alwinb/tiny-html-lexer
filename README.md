@@ -18,18 +18,23 @@ Api
 
 Simply, one top level function `chunks` that returns an iterator.
 
-	  let tinyhtml = require ('tiny-html-lexer')
-	  let stream = tinyhtml.chunks ('<span>Hello, world</span>')
-	  for (let chunk of stream)
-		    console.log (chunk)
+```javascript
+let tinyhtml = require ('tiny-html-lexer')
+let stream = tinyhtml.chunks ('<span>Hello, world</span>')
+for (let chunk of stream)
+  console.log (chunk)
+```
 
-Alternatively, without `for .. of`:
+Alternatively, without `for .. of`
+(should work just fine in ES5 environments):
 
-	  let stream = tinyhtml.chunks ('<span>Hello, world</span>') .next ()
-	  while (!stream.done) {
-		    console.log (stream.value)
-		    stream.next ()
-	  }
+```javascript
+let stream = tinyhtml.chunks ('<span>Hello, world</span>') .next ()
+while (!stream.done) {
+  console.log (stream.value)
+  stream.next ()
+}
+```
 
 Each call to `next ()` mutates and returns the iterator object itself, 
 rather than the usual separate `{ value, done }` objects. It seems superfluous 
@@ -86,5 +91,10 @@ a single regular expression per state. When this regular expression is
 executed, one can then check which transition was taken by checking which
 index in the result of regex.exec is present. 
 
+
+License
+-----------
+
+MIT. 
 
 Enjoy!

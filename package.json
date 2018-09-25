@@ -29,6 +29,6 @@
   "homepage": "https://github.com/alwinb/tiny-html-lexer#readme",
   "dependencies": {},
   "devDependencies": {
-    "tagscript": "^0.2.0"
+    "tagscript": "^0.3.0"
   }
 }

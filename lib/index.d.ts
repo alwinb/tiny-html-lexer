@@ -1,7 +1,7 @@
 declare module "tiny-html-lexer" {
   type ContentType = "data"| "rcdata"| "rawtext"| "unquoted" | "doubleQuoted"| "singleQuoted"
   class CustomState {
-    content: ContentType = "data";
+    content: ContentType;
     tagName: string;
   }
 

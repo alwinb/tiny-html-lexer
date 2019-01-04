@@ -18,6 +18,7 @@ declare module 'tiny-html-lexer' {
     | 'charRef-decimal'
     | 'charRef-hex'
     | 'charRef-named'
+    | 'charRef-legacy'
     | 'unescaped'
     | 'space'
     | 'data'

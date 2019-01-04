@@ -43,7 +43,7 @@ to create new wrapper objects for each chunk, so I went with this instead.
 Tokens are tuples (arrays) `[type, chunk]` where type is one of
 
 - `"attribute-name"`
-- `"attribute-equals"`
+- `"attribute-assign"`
 - `"attribute-value-start"`
 - `"attribute-value-data"`
 - `"attribute-value-end"`

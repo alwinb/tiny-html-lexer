@@ -43,7 +43,7 @@ to create new wrapper objects for each chunk, so I went with this instead.
 Tokens are tuples (arrays) `[type, chunk]` where type is one of
 
 - `"attribute-name"`
-- `"attribute-equals"`
+- `"attribute-assign"`
 - `"attribute-value-start"`
 - `"attribute-value-data"`
 - `"attribute-value-end"`
@@ -76,6 +76,24 @@ rather than as doctype tokens.
 - CData (only used in svg/ foreign content) is likewise parsed as 
 bogus comments. 
  
+
+Changelog
+------------
+
+### 0.8.4
+- Correct handling of legacy (unterminated) named character references. 
+
+### 0.8.3
+- Added typescript annotations. 
+- Token type `attribute-equals` has been renamed to `attribute-assign`. 
+- Renamed export `tokens` to `tokenTypes`. 
+
+### 0.8.1
+- Fix for incorrect parsing of slashes between attributes. 
+
+### 0.8.0
+- First public release. 
+
 
 Some implementation details
 ---------------------------

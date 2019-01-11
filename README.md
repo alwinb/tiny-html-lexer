@@ -77,6 +77,24 @@ rather than as doctype tokens.
 bogus comments. 
  
 
+Changelog
+------------
+
+### 0.8.4
+- Correct handling of legacy (unterminated) named character references. 
+
+### 0.8.3
+- Added typescript annotations. 
+- Token type `attribute-equals` has been renamed to `attribute-assign`. 
+- Renamed export `tokens` to `tokenTypes`. 
+
+### 0.8.1
+- Fix for incorrect parsing of slashes between attributes. 
+
+### 0.8.0
+- First public release. 
+
+
 Some implementation details
 ---------------------------
 

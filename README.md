@@ -58,7 +58,6 @@ Tokens are tuples (arrays) `[type, chunk]` where type is one of
 - `"tag-end-autoclose"`
 - `"charRef-decimal"`
 - `"charRef-hex"`
-- `"charRef-legacy"`
 - `"charRef-named"`
 - `"unescaped"`
 - `"space"`

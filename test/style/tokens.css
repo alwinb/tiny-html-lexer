@@ -32,15 +32,13 @@ pre, code {
 
 .charRef-decimal,
 .charRef-hex,
-.charRef-named,
-.charRef-legacy {
+.charRef-named {
 	color: #DDF7AC;
 }
 
 .charRef-decimal,
 .charRef-hex,
-.charRef-named,
-.charRef-legacy {
+.charRef-named {
 	/* color:#E9784F; */
 }
 

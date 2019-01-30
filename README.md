@@ -80,6 +80,10 @@ bogus comments.
 Changelog
 ------------
 
+### 0.8.5
+- Fix an issue introduced in version 0.8.4 where terminating semicolons 
+after legacy character references would be tokenized as data. 
+
 ### 0.8.4
 - Correct handling of legacy (unterminated) named character references. 
 

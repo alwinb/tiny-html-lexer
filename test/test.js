@@ -1,10 +1,19 @@
+const tinyhtml = require ('../lib')
 const log = console.log.bind (console)
 
-const tinyhtml = require ('../lib')
-const stream = tinyhtml.chunks ('<span>Hello, world</span>')
+var sample = '<span>Hello, world</span>'
+var stream = tinyhtml.chunks (sample)
 
-log (stream)
+log (stream.state)
 for (let chunk of stream) {
   log (chunk)
+  log (stream.state)
+}
+
+
+var stream = tinyhtml.TokenBuilder.build (tinyhtml.chunks (sample))
+log (stream)
+for (let token of stream) {
+  log (token)
   log (stream)
 }

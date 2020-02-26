@@ -1,8 +1,10 @@
-let tinyhtml = require ('../lib')
+const log = console.log.bind (console)
 
-let stream = tinyhtml.chunks ('<span>Hello, world</span>') .next ()
+const tinyhtml = require ('../lib')
+const stream = tinyhtml.chunks ('<span>Hello, world</span>')
 
-while (!stream.done) {
-  console.log (stream.value)
-  stream.next ()
+log (stream)
+for (let chunk of stream) {
+  log (chunk)
+  log (stream)
 }

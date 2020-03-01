@@ -1,0 +1,107 @@
+<link rel="stylesheet" type="text/css" href="./style/tokens.css">
+<script src="./lib/tinyhtml.min.js"></script>
+
+<h1>tiny html</h1>
+
+<p>
+  An example of using tiny-html
+  (<a href=https://github.com/alwinb/tiny-html-lexer>GitHub</a>)
+  in the browser. <br>
+  This shows the code of this page (before the execution of scripts),
+  as analysed by the lexer. 
+</p>
+
+<div style=display:none>
+  <ul>
+    <li>charref: special <input value=asda&not(></input>
+    <li>charref: special <input value=asda&not-></input>
+    <li>charref: special <input value=asda&not*=c></input>
+    <li>charref: special <input value=asda&not=c></input>
+    <li>charref: special <input value="asda&notit; I tell you"></input>
+    <li>charref: non-special <input value=asda&notin*=c></input>
+    <li>charref: non-special <input value=asda&notin=c></input>
+    <li>charref: non-special <input value=asda&notin;=c></input>
+    <li>charref: special &not(
+    <li>charref: special &not-
+    <li>charref: special &not*=c in data
+    <li>charref: special &not=c in data
+    <li>charref: special &notit; I tell you, in data
+    <li>charref: special &notin; I tell you, in data
+    <li>charref: non-special &notin*=c in data
+    <li>charref: non-special &notin=c in data
+    <li>charref: non-special &notin;=c in data
+    <li>charref: named <input value="you &amp; me"/> in attribute
+    <li>charref: named <input value='you &amp; me'/> in attribute
+    <li>charref: named <input value=you&#12me /> in attribute
+    <li>charref: named <input value=&amp;me /> in attribute
+    <li>charref: named <input value=&amp attr=val /> in attribute
+    <li>charref: named <input value=&ampo attr=val /> in attribute
+    <li>charref: bogus <input value="you &# am me"/> in attribute
+    <li>charref: bogus <input value='you &# amp me'/> in attribute
+    <li>charref: bogus <input value=you&x ampme /> in attribute
+    <li>charref: ampHash &amp;# such
+  </ul>
+</div>
+
+<div>
+  <pre id=inspector style=white-space:unset>
+    Inspect the output by clicking on it, below
+  </pre>
+  <pre id=colors></pre>
+</div>
+
+<script>
+  const log = console.log.bind (console)
+  const doc = document
+  const thtml = tinyhtml
+  
+
+  const pre = doc.getElementById ('colors')
+  const pre2 = doc.getElementById ('inspector')
+  const objectKey = Symbol ()
+
+  function inspect (...args) {
+    pre2.innerHTML = ''
+    for (let x of args)
+      pre2.append (JSON.stringify (x, null, 2), doc.createElement ('BR'))
+  }
+
+  function show (data) {
+    const stream = tinyhtml.chunks (data)
+    let stateBefore = stream.state.symbol, stateAfter
+    for (let chunk of stream) {
+      stateAfter = stream.state.symbol
+      const el = renderChunk (chunk)
+      pre.append (el)
+      el [objectKey] = { type:chunk[0], stateBefore, stateAfter }
+      stateBefore = stateAfter
+    }
+  }
+
+  function renderChunk ([type, value]) {
+    const e = doc.createElement ('SPAN')
+      e.title = e.className = type
+      let tnode = doc.createTextNode(value)
+      e.append (value)
+      return e
+  }
+
+  function main () {
+    const req = new XMLHttpRequest ()
+      req.responseType = 'text'
+      req.onload = $=> show (req.responseText)
+      req.onerror = $=> show ('<h1>Error</h1>\n<p>XMLHttpRequest failed</p>')
+    // Go!
+    
+    doc.body.onclick = function (evt) {
+      if (objectKey in evt.target)
+        inspect (evt.target [objectKey])
+    }
+    
+    req.open ('GET', document.location)
+    req.send ()
+  }
+</script>
+<script>main()</script>
+
+

@@ -1,0 +1,101 @@
+html, body {
+  margin:0; padding:0;
+  font-size:24px;
+}
+
+body {
+	font-family:Helvetica, Arial, Sans;
+  font-size:16px;
+  line-height:1rem;
+}
+
+/** Styles for the tokens **/
+
+pre, code { 
+  font-size:13px;
+	color:white;
+	background:#202020;
+	font-family:Menlo, Monaco, Monospace;
+	tab-size:2;
+}
+
+/* Html colors */
+
+.commentStart,
+.commentStartBogus,
+.commentData,
+.commentEnd,
+.commentEndBogus,
+.tagSpace {
+	color:#746D74;
+}
+
+.attributeValueStart,
+.attributeValueData,
+.attributeValueEnd {
+	color: #8F9D6A;
+}
+
+.charRefDecimal,
+.charRefHex,
+.charRefNamed {
+	color: #DDF7AC;
+}
+
+.charRefDecimal,
+.charRefHex,
+.charRefNamed {
+	/* color:#E9784F; */
+}
+
+.startTagStart,
+.endTagStart,
+.tagEnd,
+.tagEndClose {
+	color: #B38243;
+}
+
+.attributeAssign,
+.attributeName {
+	color: #D4BD7F;
+}
+
+
+/* .data,
+.rcdata,
+.rawtext,
+.plaintext */
+
+.unescaped {
+	background: #60315A;
+}
+
+
+/** Some additional stying for the rest of the sample page **/
+
+body {
+  padding:1rem 1rem;
+}
+h1 {
+  font-size:48px;
+  line-height:2rem;
+  min-height:2rem;
+}
+pre {
+  display:block;
+  line-height:1rem;
+  padding:.7rem 1rem 1.3rem;
+  border-radius:.3rem;
+}
+
+#colors {
+  cursor:default;
+}
+#colors span {
+  padding:.15rem 0;
+  border-radius:.1rem;
+}
+#colors span:hover {
+  background:#444;
+}
+

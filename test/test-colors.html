@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="./style/tokens.css?ao">
+<link rel="stylesheet" type="text/css" href="./style/tokens.css">
 <script src="../dist/tinyhtml.min.js"></script>
 
 <h1>tiny html</h1>
@@ -40,13 +40,40 @@
   </ul>
 </div>
 
-<div><pre id=output>
-</pre></div>
+<div>
+  <pre id=inspector style=white-space:unset>
+    Inspect the output by clicking on it, below
+  </pre>
+  <pre id=colors></pre>
+</div>
 
 <script>
   const log = console.log.bind (console)
   const doc = document
   const thtml = tinyhtml
+  
+
+  const pre = doc.getElementById ('colors')
+  const pre2 = doc.getElementById ('inspector')
+  const objectKey = Symbol ()
+
+  function inspect (...args) {
+    pre2.innerHTML = ''
+    for (let x of args)
+      pre2.append (JSON.stringify (x, null, 2), doc.createElement ('BR'))
+  }
+
+  function show (data) {
+    const stream = tinyhtml.chunks (data)
+    let stateBefore = stream.state.symbol, stateAfter
+    for (let chunk of stream) {
+      stateAfter = stream.state.symbol
+      const el = renderChunk (chunk)
+      pre.append (el)
+      el [objectKey] = { type:chunk[0], stateBefore, stateAfter }
+      stateBefore = stateAfter
+    }
+  }
 
   function renderChunk ([type, value]) {
     const e = doc.createElement ('SPAN')
@@ -56,11 +83,22 @@
       return e
   }
 
-  const pre = doc.getElementById ('output')
-  for (let chunk of tinyhtml.chunks (doc.documentElement.innerHTML)) {
-    log (chunk)
-    pre.append (renderChunk (chunk))
+  function main () {
+    const req = new XMLHttpRequest ()
+      req.responseType = 'text'
+      req.onload = $=> show (req.responseText)
+      req.onerror = $=> show ('<h1>Error</h1>\n<p>XMLHttpRequest failed</p>')
+    // Go!
+    
+    doc.body.onclick = function (evt) {
+      if (objectKey in evt.target)
+        inspect (evt.target [objectKey])
+    }
+    
+    req.open ('GET', document.location)
+    req.send ()
   }
 </script>
+<script>main()</script>
 
 

@@ -88,14 +88,14 @@ pre {
   border-radius:.3rem;
 }
 
-#output {
+#colors {
   cursor:default;
 }
-#output span {
+#colors span {
   padding:.15rem 0;
   border-radius:.1rem;
 }
-#output span:hover {
+#colors span:hover {
   background:#444;
 }
 

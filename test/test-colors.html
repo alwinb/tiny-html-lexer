@@ -1,0 +1,66 @@
+<link rel="stylesheet" type="text/css" href="./style/tokens.css?ao">
+<script src="../dist/tinyhtml.min.js"></script>
+
+<h1>tiny html</h1>
+<p>
+  An example of using tiny-html in the browser. <br>
+  This shows the code of this page (before the execution of scripts),
+  as analysed by the lexer. 
+</p>
+
+<div style=display:none>
+  <ul>
+    <li>charref: special <input value=asda&not(></input>
+    <li>charref: special <input value=asda&not-></input>
+    <li>charref: special <input value=asda&not*=c></input>
+    <li>charref: special <input value=asda&not=c></input>
+    <li>charref: special <input value="asda&notit; I tell you"></input>
+    <li>charref: non-special <input value=asda&notin*=c></input>
+    <li>charref: non-special <input value=asda&notin=c></input>
+    <li>charref: non-special <input value=asda&notin;=c></input>
+    <li>charref: special &not(
+    <li>charref: special &not-
+    <li>charref: special &not*=c in data
+    <li>charref: special &not=c in data
+    <li>charref: special &notit; I tell you, in data
+    <li>charref: special &notin; I tell you, in data
+    <li>charref: non-special &notin*=c in data
+    <li>charref: non-special &notin=c in data
+    <li>charref: non-special &notin;=c in data
+    <li>charref: named <input value="you &amp; me"/> in attribute
+    <li>charref: named <input value='you &amp; me'/> in attribute
+    <li>charref: named <input value=you&#12me /> in attribute
+    <li>charref: named <input value=&amp;me /> in attribute
+    <li>charref: named <input value=&amp attr=val /> in attribute
+    <li>charref: named <input value=&ampo attr=val /> in attribute
+    <li>charref: bogus <input value="you &# am me"/> in attribute
+    <li>charref: bogus <input value='you &# amp me'/> in attribute
+    <li>charref: bogus <input value=you&x ampme /> in attribute
+    <li>charref: ampHash &amp;# such
+  </ul>
+</div>
+
+<div><pre id=output>
+</pre></div>
+
+<script>
+  const log = console.log.bind (console)
+  const doc = document
+  const thtml = tinyhtml
+
+  function renderChunk ([type, value]) {
+    const e = doc.createElement ('SPAN')
+      e.title = e.className = type
+      let tnode = doc.createTextNode(value)
+      e.append (value)
+      return e
+  }
+
+  const pre = doc.getElementById ('output')
+  for (let chunk of tinyhtml.chunks (doc.documentElement.innerHTML)) {
+    log (chunk)
+    pre.append (renderChunk (chunk))
+  }
+</script>
+
+

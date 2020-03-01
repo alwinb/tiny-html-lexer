@@ -42,25 +42,25 @@ to create new wrapper objects for each chunk, so I went with this instead.
 
 Tokens are tuples (arrays) `[type, chunk]` where type is one of
 
-- `"attribute-name"`
-- `"attribute-assign"`
-- `"attribute-value-start"`
-- `"attribute-value-data"`
-- `"attribute-value-end"`
-- `"comment-start"`
-- `"comment-start-bogus"`
-- `"comment-data"`
-- `"comment-end"`
-- `"comment-end-bogus"`
-- `"startTag-start"`
-- `"endTag-start"`
-- `"tag-end"`
-- `"tag-end-autoclose"`
-- `"charRef-decimal"`
-- `"charRef-hex"`
-- `"charRef-named"`
+- `"attributeName"`
+- `"attributeAssign"`
+- `"attributeValueStart"`
+- `"attributeValueData"`
+- `"attributeValueEnd"`
+- `"tagSpace"`
+- `"commentStart"`
+- `"commentStartBogus"`
+- `"commentData"`
+- `"commentEnd"`
+- `"commentEndBogus"`
+- `"startTagStart"`
+- `"endTagStart"`
+- `"tagEnd"`
+- `"tagEndClose"`
+- `"charRefDecimal"`
+- `"charRefHex"`
+- `"charRefNamed"`
 - `"unescaped"`
-- `"space"`
 - `"data"`
 - `"rcdata"`
 - `"rawtext"`

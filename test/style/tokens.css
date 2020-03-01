@@ -15,45 +15,44 @@ pre, code {
 
 /* html colors */
 
-.comment-start,
-.comment-start-bogus,
-.comment-data,
-.comment-end,
-.comment-end-bogus,
-.space {
+.commentStart,
+.commentStartBogus,
+.commentData,
+.commentEnd,
+.commentEndBogus,
+.tagSpace {
 	color:#746D74;
 }
 
-.attribute-value-start,
-.attribute-value-data,
-.attribute-value-end {
+.attributeValueStart,
+.attributeValueData,
+.attributeValueEnd {
 	color: #8F9D6A;
 }
 
-.charRef-decimal,
-.charRef-hex,
-.charRef-named {
+.charRefDecimal,
+.charRefHex,
+.charRefNamed {
 	color: #DDF7AC;
 }
 
-.charRef-decimal,
-.charRef-hex,
-.charRef-named {
+.charRefDecimal,
+.charRefHex,
+.charRefNamed {
 	/* color:#E9784F; */
 }
 
-.startTag-start,
-.endTag-start,
-.tag-end,
-.tag-end-autoclose {
-	color:#B38243;
+.startTagStart,
+.endTagStart,
+.tagEnd,
+.tagEndClose {
+	color: #B38243;
 }
 
-.attribute-assign,
-.attribute-name {
+.attributeAssign,
+.attributeName {
 	color: #D4BD7F;
 }
-
 
 
 /* .data,
@@ -61,7 +60,6 @@ pre, code {
 .rawtext,
 .plaintext */
 
-
 .unescaped {
-	background:#60315A;
+	background: #60315A;
 }

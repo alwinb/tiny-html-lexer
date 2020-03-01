@@ -8,10 +8,12 @@ The chunker preserves all input characters, so it is suitable for building
 a syntax highlighter or html editor on top of it as well, if you like. 
 
 It is lazy/ on demand, so it does not unnecessarily buffer chunks. 
+You can see a simple example/ of it running in the browser [here][1]. 
 
 I would love for someone to build a tiny template language with it. 
 Feel free to contact me with any questions. 
 
+[1]: http://alwinb.github.io/tiny-html-lexer/example.html
 
 Api
 ---
@@ -25,22 +27,25 @@ for (let chunk of stream)
   console.log (chunk)
 ```
 
-Alternatively, without `for .. of`
-(should work just fine in ES5 environments):
+You can access the lexer state as follows.  
+(API may change a bit, still). 
 
 ```javascript
-let stream = tinyhtml.chunks ('<span>Hello, world</span>') .next ()
-while (!stream.done) {
-  console.log (stream.value)
-  stream.next ()
+let tinyhtml = require ('tiny-html-lexer')
+let stream = tinyhtml.chunks ('<span>Hello, world</span>')
+console.log (stream.state) // state before
+for (let chunk of stream) {
+  console.log (chunk)
+  console.log (stream.state) // state after last seen chunk 
 }
 ```
 
-Each call to `next ()` mutates and returns the iterator object itself, 
-rather than the usual separate `{ value, done }` objects. It seems superfluous 
-to create new wrapper objects for each chunk, so I went with this instead. 
+### Tokens
 
-Tokens are tuples (arrays) `[type, chunk]` where type is one of
+Tokens are tuples (arrays) `[type, data]` where `type` is a string
+and `data` is a chunk of the input string. 
+
+`type` is one of:
 
 - `"attributeName"`
 - `"attributeAssign"`

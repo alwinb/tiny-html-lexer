@@ -4,8 +4,7 @@ A tiny HTML5 lexer
 A tiny standard compliant HTML5 lexer/ chunker. 
 Its small size should make it ideal for client side usage. 
 
-The chunker preserves all input characters, so it is suitable for building 
-a syntax highlighter or html editor on top of it as well, if you like. 
+The chunker preserves all input characters, so it is suitable for building a syntax highlighter or html editor on top of it as well, if you like. 
 
 It is lazy/ on demand, so it does not unnecessarily buffer chunks. 
 You can see a simple example/ of it running in the browser [here][1]. 
@@ -18,7 +17,7 @@ Feel free to contact me with any questions.
 Api
 ---
 
-Simply, one top level function `chunks` that returns an iterator.
+Two top level functions, `chunks (input)`, and `tags (input)`. 
 
 ```javascript
 let tinyhtml = require ('tiny-html-lexer')
@@ -27,11 +26,18 @@ for (let chunk of stream)
   console.log (chunk)
 ```
 
+Likewise:
+
+```javascript
+let stream = tinyhtml.tags ('<span>Hello, world</span>')
+for (let tag of stream)
+  console.log (tag)
+```
+
 You can access the lexer state as follows.  
 (API may change a bit, still). 
 
 ```javascript
-let tinyhtml = require ('tiny-html-lexer')
 let stream = tinyhtml.chunks ('<span>Hello, world</span>')
 console.log (stream.state) // state before
 for (let chunk of stream) {
@@ -40,9 +46,9 @@ for (let chunk of stream) {
 }
 ```
 
-### Tokens
+### Chunks
 
-Tokens are tuples (arrays) `[type, data]` where `type` is a string
+Chunks are tuples (arrays) `[type, data]` where `type` is a string 
 and `data` is a chunk of the input string. 
 
 `type` is one of:
@@ -71,23 +77,29 @@ and `data` is a chunk of the input string.
 - `"rawtext"`
 - `"plaintext"`
 
+### Tags
+
+These are called 'tokens' in the HTML5 standard. 
+A 'Tag' is aither a plain string, or an object that is an instance of `StartTag`, `EndTag` or `Comment`. 
+
 
 Limitations
 -----------
 
-- Doctype tokens are preserved, but are parsed as bogus comments
-rather than as doctype tokens. 
-
-- CData (only used in svg/ foreign content) is likewise parsed as 
-bogus comments. 
- 
+- Doctype tokens are preserved, but are parsed as bogus comments rather than as doctype tokens. 
+- CData (only used in svg/ foreign content) is likewise parsed as bogus comments. 
+- Only a very limted number of _named_ entities are supported by the token builder (i.e. `tags` parser), most of all because naively adding a map of entities would increase the code size about ten times, so I am still thinking about a way to compress them. (Feel free to contact me if you need this). 
 
 Changelog
 ------------
 
+### 0.9.0
+- Rewrote the lexer runtime. 
+- Added a token builder! Use `tinyhtml.tags (string)` to get a lazy stream (an iterator) of tag objects and data strings. 
+- Disabled the typescript annotations for the time being. 
+
 ### 0.8.5
-- Fix an issue introduced in version 0.8.4 where terminating semicolons 
-after legacy character references would be tokenized as data. 
+- Fix an issue introduced in version 0.8.4 where terminating semicolons after legacy character references would be tokenized as data. 
 
 ### 0.8.4
 - Correct handling of legacy (unterminated) named character references. 

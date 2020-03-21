@@ -1,6 +1,6 @@
 {
   "name": "tiny-html-lexer",
-  "version": "0.8.5",
+  "version": "0.9.0",
   "description": "A tiny HTML5 lexer",
   "main": "lib/index.js",
   "directories": {

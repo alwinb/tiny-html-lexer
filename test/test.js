@@ -3,7 +3,11 @@ const util = require ('util')
 const log = console.log.bind (console)
 
 var sample = '<span>Hello, world</span>'
-var sample = '<span>&lt&#x1F33F; Hello, world! &#129421;&gt</span attr="&lt=&lt">'
+var sample = '<span>&lt&#x1F33F; Hello, world!\n&#129421;&gt</span attr="&lt=&lt"> Test &abs d'
+var sample = '<span cLass="foo" class="bar" Class=bee bar baz="a\nb">\n'
+var sample = '<script>\n'
+var sample = '<plaintext>\n'
+var sample = '<textarea>\r'
 
 var stream = tinyhtml.chunks (sample)
 

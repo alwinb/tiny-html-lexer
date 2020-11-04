@@ -1,7 +1,10 @@
 A tiny HTML5 lexer 
 ==================
 
-A tiny standard compliant HTML5 lexer/ chunker. 
+[![NPM version][npm-image]][npm-url]
+
+A **tiny** standard compliant HTML5 lexer/ chunker. 
+The minified bundle is currently **6.3k** bytes. 
 Its small size should make it ideal for client side usage. 
 
 The chunker preserves all input characters, so it is suitable for building a syntax highlighter or html editor on top of it as well, if you like. 
@@ -13,11 +16,14 @@ I would love for someone to build a tiny template language with it.
 Feel free to contact me with any questions. 
 
 [1]: http://alwinb.github.io/tiny-html-lexer/example.html
+[npm-image]: https://img.shields.io/npm/v/tiny-html-lexer.svg
+[npm-url]: https://npmjs.org/package/tiny-html-lexer
+
 
 Api
 ---
 
-Two top level functions, `chunks (input)`, and `tags (input)`. 
+Two top level generator functions, `chunks (input)`, and `tags (input)`. 
 
 ```javascript
 let tinyhtml = require ('tiny-html-lexer')
@@ -73,6 +79,7 @@ and `data` is a chunk of the input string.
 - `"charRefNamed"`
 - `"unescaped"`
 - `"data"`
+- `"newline"`
 - `"rcdata"`
 - `"rawtext"`
 - `"plaintext"`
@@ -80,7 +87,7 @@ and `data` is a chunk of the input string.
 ### Tags
 
 These are called 'tokens' in the HTML5 standard. 
-A 'Tag' is aither a plain string, or an object that is an instance of `StartTag`, `EndTag` or `Comment`. 
+A 'Tag' is either a plain string, or an object that is an instance of `StartTag`, `EndTag` or `Comment`. 
 
 
 Limitations
@@ -93,10 +100,15 @@ Limitations
 Changelog
 ------------
 
+### 0.9.1
+- The token builder now lowercases attribute names and handles duplicate attributes according to the standard (the first value is preserved).
+- Some preliminary work has been done to emit newlines as separate `"newline"` chunks. 
+
 ### 0.9.0
 - Rewrote the lexer runtime. 
 - Added a token builder! Use `tinyhtml.tags (string)` to get a lazy stream (an iterator) of tag objects and data strings. 
 - Disabled the typescript annotations for the time being. 
+- The types have been renamed to use camelCase. 
 
 ### 0.8.5
 - Fix an issue introduced in version 0.8.4 where terminating semicolons after legacy character references would be tokenized as data. 

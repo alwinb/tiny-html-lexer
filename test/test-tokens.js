@@ -6,12 +6,11 @@ const build = TokenBuilder.build
 
 // test
 
-var stream = chunks ('<span foo = "" bar><!-This is a comment->')
-var r = [...build (stream)]
-log (r)
+var sample  = '<span foo = "" bar><!-This is a comment->'
+var sample2 = '<span foo bar>bas\nbee\nbuzz<i'
+var sample3 = '<span cLass="foo" class="bar" Class=bee bar baz="a\nb">\n'
 
-
-var stream = chunks ('<span foo bar>bas\nbee\nbuzz<i')
+var stream = chunks (sample3)
 var r = [...build (stream)]
 log (r)
 

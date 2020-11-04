@@ -10,7 +10,10 @@ module = tinyhtml
 all: dist/tinyhtml.min.js
 
 dist/tinyhtml.min.js: dist/ $(sources)
-	@ browserify lib/browser.js | terser -cm > dist/tinyhtml.min.js
+	esbuild lib/browser.js --bundle --minify --outfile=dist/tinyhtml.min.js
+
+# dist/tinyhtml.js: dist/ $(sources)
+# 	esbuild lib/browser.js --bundle --outfile=dist/tinyhtml.min.js
 
 dist/:
 	@ mkdir dist/

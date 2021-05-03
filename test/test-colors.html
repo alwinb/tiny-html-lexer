@@ -89,13 +89,17 @@
 
   function show (data) {
     const stream = tinyhtml.chunks (data)
+    let { line, lastnl, position } = stream.state
+    let col = position - lastnl
     let stateBefore = stream.state.symbol, stateAfter
     for (let chunk of stream) {
       stateAfter = stream.state.symbol
       const el = renderChunk (chunk)
       pre.append (el)
-      el [objectKey] = { type:chunk[0], stateBefore, stateAfter }
-      stateBefore = stateAfter
+      el [objectKey] = { line, col, stateBefore, type:chunk[0], stateAfter }
+      stateBefore = stateAfter;
+      ({ line, lastnl, position } = stream.state)
+      col = position - lastnl
     }
   }
 

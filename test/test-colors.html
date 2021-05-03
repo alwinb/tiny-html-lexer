@@ -1,5 +1,4 @@
 <link rel="stylesheet" type="text/css" href="./style/tokens.css">
-<script src="../dist/tinyhtml.min.js"></script>
 
 <h1>tiny html</h1>
 <p>
@@ -71,12 +70,13 @@
   <pre id=colors></pre>
 </div>
 
-<script>
-  const log = console.log.bind (console)
-  const doc = document
-  const thtml = tinyhtml
-  
+<script type=module>
 
+  import * as tinyhtml from "../dist/tinyhtml.min.js"
+  const log = console.log.bind (console)
+  log (tinyhtml)
+
+  const doc = document
   const pre = doc.getElementById ('colors')
   const pre2 = doc.getElementById ('inspector')
   const objectKey = Symbol ()
@@ -89,8 +89,7 @@
 
   function show (data) {
     const stream = tinyhtml.chunks (data)
-    let { line, lastnl, position } = stream.state
-    let col = position - lastnl
+    let { line, col } = stream.state
     let stateBefore = stream.state.symbol, stateAfter
     for (let chunk of stream) {
       stateAfter = stream.state.symbol
@@ -98,8 +97,7 @@
       pre.append (el)
       el [objectKey] = { line, col, stateBefore, type:chunk[0], stateAfter }
       stateBefore = stateAfter;
-      ({ line, lastnl, position } = stream.state)
-      col = position - lastnl
+      ({ line, col } = stream.state)
     }
   }
 
@@ -126,7 +124,11 @@
     req.open ('GET', document.location)
     req.send ()
   }
+
+
+  // Main
+  // ----
+
+  main ()
+
 </script>
-<script>main()</script>
-
-

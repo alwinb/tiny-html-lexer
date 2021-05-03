@@ -26,7 +26,7 @@ The **tiny-html-lexer** module exposes two top level generator functions:
 - chunks (input), a.k.a. lexemes (input)
 - tokens (input), a.k.a. tags (input)
 
-Example: **chunks**
+**chunks**
 
 ```javascript
 let tinyhtml = require ('tiny-html-lexer')
@@ -35,15 +35,15 @@ for (let chunk of stream)
   console.log (chunk)
 ```
 
-Likewise: **tokens**
+Likewise, **tags**
 
 ```javascript
-let stream = tinyhtml.tokens ('<span>Hello, world</span>')
+let stream = tags ('<span>Hello, world</span>')
 for (let token of stream)
   console.log (token)
 ```
 
-You can access the lexer state as follows:
+You can access the **chunks** lexer state as follows:
 
 ```javascript
 let stream = tinyhtml.chunks ('<span>Hello, world</span>')
@@ -51,6 +51,17 @@ console.log (stream.state) // state before
 for (let chunk of stream) {
   console.log (chunk)
   console.log (stream.state) // state after last seen chunk 
+}
+```
+
+This is similar for **tags**, as follows. Note that this returns the state of the underlying **chunks** lexer.
+
+```javascript
+let stream = tinyhtml.tags ('<span>Hello, world</span>')
+console.log (stream.state) // lexer state before
+for (let chunk of stream) {
+  console.log (chunk)
+  console.log (stream.state) // lexer state after last seen chunk 
 }
 ```
 
@@ -95,7 +106,7 @@ The generator returned from the **chunks** function has a propery _state_ that p
 
 * LexerState
   - position — the current position into the input string
-  - line — the current line number
+  - line — the current line number. The first line is line 1.
   - col — (getter) the position into the current line
 
 
@@ -134,6 +145,13 @@ Limitations
 
 Changelog
 ------------
+
+### 1.0.0-rc.2
+
+- A few more changes, working up towards a varsion 1.0.0 release!
+- The lexer state is now also avaiblable on tags / token streams. 
+- The project has been converted from commmonJS to an ES module.
+- A bug has been fixed where end-tags woth attributes would throw an error. 
 
 ### 1.0.0-rc
 - Wrapping up!

@@ -1,8 +1,9 @@
 {
   "name": "tiny-html-lexer",
-  "version": "0.9.1",
+  "version": "1.0.0-rc",
   "description": "A tiny HTML5 lexer",
   "main": "lib/index.js",
+  "type": "module",
   "directories": {
     "test": "test"
   },

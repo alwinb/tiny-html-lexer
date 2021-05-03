@@ -1,5 +1,5 @@
-const { chunks } = require ('../lib/tiny-lexer')
-const { TokenBuilder } = require ('../lib/token-builder')
+import { chunks } from '../lib/tiny-lexer.js'
+import { TokenBuilder } from '../lib/token-builder.js'
 const log = console.log.bind (console)
 
 const build = TokenBuilder.build

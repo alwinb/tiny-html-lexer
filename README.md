@@ -1,15 +1,13 @@
-A tiny HTML5 lexer 
+A Tiny HTML5 lexer 
 ==================
 
 [![NPM version][npm-image]][npm-url]
 
-A **tiny** standard compliant HTML5 lexer/ chunker. 
-The minified bundle is currently **6.3k** bytes. 
+A **tiny** standard compliant HTML5 lexer and tokeniser. 
+The minified bundle is currently **6.9k** bytes. 
 Its small size should make it ideal for client side usage. 
 
-The chunker preserves all input characters, so it is suitable for building a syntax highlighter or html editor on top of it as well, if you like. 
-
-It is lazy/ on demand, so it does not unnecessarily buffer chunks. 
+The chunker preserves all input characters, so it is suitable for building a syntax highlighter or html editor on top of it as well. It is lazy/ on demand, so it does not unnecessarily buffer chunks. 
 You can see a simple example/ of it running in the browser [here][1]. 
 
 I would love for someone to build a tiny template language with it. 
@@ -20,10 +18,15 @@ Feel free to contact me with any questions.
 [npm-url]: https://npmjs.org/package/tiny-html-lexer
 
 
-Api
+API
 ---
 
-Two top level generator functions, `chunks (input)`, and `tags (input)`. 
+The **tiny-html-lexer** module exposes two top level generator functions:
+
+- chunks (input), a.k.a. lexemes (input)
+- tokens (input), a.k.a. tags (input)
+
+Example: **chunks**
 
 ```javascript
 let tinyhtml = require ('tiny-html-lexer')
@@ -32,16 +35,15 @@ for (let chunk of stream)
   console.log (chunk)
 ```
 
-Likewise:
+Likewise: **tokens**
 
 ```javascript
-let stream = tinyhtml.tags ('<span>Hello, world</span>')
-for (let tag of stream)
-  console.log (tag)
+let stream = tinyhtml.tokens ('<span>Hello, world</span>')
+for (let token of stream)
+  console.log (token)
 ```
 
-You can access the lexer state as follows.  
-(API may change a bit, still). 
+You can access the lexer state as follows:
 
 ```javascript
 let stream = tinyhtml.chunks ('<span>Hello, world</span>')
@@ -52,12 +54,14 @@ for (let chunk of stream) {
 }
 ```
 
+
 ### Chunks
 
-Chunks are tuples (arrays) `[type, data]` where `type` is a string 
-and `data` is a chunk of the input string. 
+Chunks are produced by the **chunks** generator function. 
+A chunk is a pair, i.e. an array [_type_, _data_] where _type_ is a string 
+and _data_ is a chunk of the input string. 
 
-`type` is one of:
+The _type_ is one of:
 
 - `"attributeName"`
 - `"attributeAssign"`
@@ -84,10 +88,41 @@ and `data` is a chunk of the input string.
 - `"rawtext"`
 - `"plaintext"`
 
-### Tags
 
-These are called 'tokens' in the HTML5 standard. 
-A 'Tag' is either a plain string, or an object that is an instance of `StartTag`, `EndTag` or `Comment`. 
+### Lexer State
+
+The generator returned from the **chunks** function has a propery _state_ that provides access to the lexer state. This can be used to annotate chunks with source positions if needed. 
+
+* LexerState
+  - position — the current position into the input string
+  - line — the current line number
+  - col — (getter) the position into the current line
+
+
+### Tokens
+
+The word _token_ has a specific meaning in the HTML5 standard. 
+Tokens are more abstract than chunks.  
+A 'Token' is a plain string, or an object that is an instance of 
+*StartTag*, *EndTag*, *Whitespace*, *Comment* or *BogusComment*.
+
+* StartTag
+  - name — a string
+  - attrs — an object (with null prototype) that stores the tag's attributes
+  - selfClosing — an optional attribute, true if present
+  - toString () — returns an HTML source string for the tag
+* EndTag
+  - name — string
+  - toString ()
+* Whitespace
+  - data — A string, consisting solely of whitespace characters
+  - toString ()
+* Comment
+  - data — The comment data (excluding start and end markers)
+  - toString ()
+* BogusComment
+  - data — The comment data (excluding start and end markers)
+  - toString ()
 
 
 Limitations
@@ -99,6 +134,13 @@ Limitations
 
 Changelog
 ------------
+
+### 1.0.0-rc
+- Wrapping up!
+- The lexer now properly maintains a newline count and emits separate `"newline"` chunks.
+- The token objects have changed a bit and are now described in the docs above. 
+- Likewise for the lexer state. 
+- The 'tags' function has been renamed to 'tokens', to align with the use of that word as in the HTML5 standard. It remains available under the name 'tags' as well. 
 
 ### 0.9.1
 - The token builder now lowercases attribute names and handles duplicate attributes according to the standard (the first value is preserved).

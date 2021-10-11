@@ -23,10 +23,10 @@ API
 
 The **tiny-html-lexer** module exposes two top level generator functions:
 
-- chunks (input), a.k.a. lexemes (input)
-- tokens (input), a.k.a. tags (input)
+- chunks (input), a.k.a. lexemes
+- tokens (input [, options]), a.k.a. tags
 
-Example: **chunks**
+**chunks**, aka. **lexemes**
 
 ```javascript
 let tinyhtml = require ('tiny-html-lexer')
@@ -35,15 +35,36 @@ for (let chunk of stream)
   console.log (chunk)
 ```
 
-Likewise: **tokens**
+Likewise, **tags**, aka. **tokens**
 
 ```javascript
-let stream = tinyhtml.tokens ('<span>Hello, world</span>')
+let stream = tags ('<span>Hello, world</span>')
 for (let token of stream)
   console.log (token)
 ```
 
-You can access the lexer state as follows:
+
+#### Options: Named character references
+
+⚠️ Only a very limited number of _named_ character references are supported by the token builder (i.e. `tags` parser), most of all because naively adding a map of entities would increase the code size about ten times, so I am thinking about a way to compress them. 
+
+However, you can supply your own decoder to the **tags** function, by passing an options argument as follows:
+
+```javascript
+function parseNamedCharRef (string) {
+  return string in myEntityMap ? myEntityMap [string] : string
+}
+
+let stream = tags ('<span>Hello, world</span>', { parseNamedCharRef })
+for (let token of stream)
+  console.log (token)
+```
+
+**Note** that the input is _not_ always a known HTML named character reference. It _does_ always start with `&`. It typically includes the terminating `;` character. However, the semicolon is not added to any non-terminated legacy named character references in the HTML source. 
+
+#### Source positions
+
+You can access the **chunks** lexer state as follows:
 
 ```javascript
 let stream = tinyhtml.chunks ('<span>Hello, world</span>')
@@ -51,6 +72,17 @@ console.log (stream.state) // state before
 for (let chunk of stream) {
   console.log (chunk)
   console.log (stream.state) // state after last seen chunk 
+}
+```
+
+This is similar for **tags**, as follows. Note that this returns the state of the underlying **chunks** lexer.
+
+```javascript
+let stream = tinyhtml.tags ('<span>Hello, world</span>')
+console.log (stream.state) // lexer state before
+for (let chunk of stream) {
+  console.log (chunk)
+  console.log (stream.state) // lexer state after last seen chunk 
 }
 ```
 
@@ -91,11 +123,11 @@ The _type_ is one of:
 
 ### Lexer State
 
-The generator returned from the **chunks** function has a propery _state_ that provides access to the lexer state. This can be used to annotate chunks with source positions if needed. 
+The generator returned from the **chunks** function has a property _state_ that provides access to the lexer state. This can be used to annotate chunks with source positions if needed. 
 
 * LexerState
   - position — the current position into the input string
-  - line — the current line number
+  - line — the current line number. The first line is line 1.
   - col — (getter) the position into the current line
 
 
@@ -130,10 +162,18 @@ Limitations
 
 - Doctype tokens are preserved, but are parsed as bogus comments rather than as doctype tokens. 
 - CData (only used in svg/ foreign content) is likewise parsed as bogus comments. 
-- Only a very limted number of _named_ entities are supported by the token builder (i.e. `tags` parser), most of all because naively adding a map of entities would increase the code size about ten times, so I am still thinking about a way to compress them. (Feel free to contact me if you need this). 
+
 
 Changelog
 ------------
+
+### 1.0.0-rc.2
+
+- A few more changes, working up towards a version 1.0.0 release!
+- The lexer state / source position is now also accessible from tags / token streams. 
+- It is now possible to pass an external parseNamedCharRef function as an option to `tinyhtml.tags`.
+- The project has been converted from commmonJS to an ES module.
+- A bug has been fixed where the presence of attributes on an end-tag would throw an error. 
 
 ### 1.0.0-rc
 - Wrapping up!
@@ -153,7 +193,7 @@ Changelog
 - The types have been renamed to use camelCase. 
 
 ### 0.8.5
-- Fix an issue introduced in version 0.8.4 where terminating semicolons after legacy character references would be tokenized as data. 
+- Fix an issue introduced in version 0.8.4 where terminating semicolons after legacy character references would be tokenised as data. 
 
 ### 0.8.4
 - Correct handling of legacy (unterminated) named character references. 

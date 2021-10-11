@@ -1,6 +1,6 @@
 .PHONY: all clean
 
-files = browser.js index.js tiny-lexer.js token-builder.js
+files = index.js tiny-lexer.js token-builder.js
 sources = $(addprefix lib/, $(files))
 module = tinyhtml
 
@@ -11,7 +11,7 @@ all: dist/tinyhtml.min.js
 
 dist/tinyhtml.min.js: dist/ $(sources) Makefile
 	@ echo "Making a minified ES module bundle"
-	@ esbuild --bundle --keep-names --format=esm --minify lib/index.js > dist/tinyhtml.min.js
+	@ esbuild --bundle --keep-names --format=esm --minify lib/index.js > dist/$(module).min.js
 
 dist/:
 	@ mkdir dist/

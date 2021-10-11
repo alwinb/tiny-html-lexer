@@ -1,5 +1,6 @@
-package-lock.json
-/node_modules/
+node_modules/
+dist/
+ignore/
+.tm_properties
 .vscode
-/dist/
-/ignore/
+package-lock.json

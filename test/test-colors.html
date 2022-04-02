@@ -8,34 +8,39 @@
 </p>
 
 <div style=display:none>
-  comment <!weird markup declaration> and such -->
-  comment <!> and such -->
-  comment <?> and such -->
-  comment </> and such -->
-  comment <!-> and such -->
-  comment <?-> and such -->
-  comment <!-> and such -->
-  comment <!--> and such -->
-  comment <?--> and such -->
-  comment <!--> and such -->
-  comment <!--!> and such -->
-  comment <!--> and such -->
-  comment <!-> and such -->
-  comment <!---!> and such -->
-  comment <!----!> and such -->
-  comment <!-- with -> within --> and subsequent data -->
-  comment <!-- with bogus end -> and subsequent comment data -->
-  comment <!-- Comment with -- double dash within --> and subsequent data -->
-  comment <!-- Comment with --!- weird stuff within --> and subsequent data -->
-  comment <!-- Comment with strange end --!> and subsequent data >
-  bogus comment <! with end !@> and subsequent data -->
-  bogus comment </ with end !@> and subsequent data -->
-  bogus comment <? with end !@> and subsequent data -->
-  bogus comment <!- with end -> and subsequent data -->
+  data <!comment> and data -->
+  data <!-- comment --?> and data -->
+  data <!> data -->
+  data <?> data -->
+  data </> data -->
+  data <!-> data -->
+  data <?-> data -->
+  data <!- > data -->
+  data <!- !> data -->
+  data <!- -!> data -->
+  data <!-> data -->
+  data <!--> data -->
+  data <?--> data -->
+  data <!--> data -->
+  data <!--!> comment -->
+  data <!--> data -->
+  data <!-> data -->
+  data <!---!> comment -->
+  data <!----!> data -->
+  data <!-- comment -> comment --> data -->
+  data <!-- comment -!> comment --> data -->
+  data <!-- comment -- comment --> data -->
+  data <!-- comment --!- comment --> data -->
+  data <!-- comment --!> and data >
+  data <! bogus-comment !@> data -->
+  data </ bogus-comment !@> data -->
+  data <? bogus-comment !@> data -->
+  data <!- bogus-comment -> data -->
   <ul>
     <li>charref: special <input value=asda&not(></input>
     <li>charref: special <input value=asda&not-></input>
     <li>charref: special <input value=asda&not*=c></input>
+    <li>charref: special <input value=asda&not&and=c></input>
     <li>charref: special <input value=asda&not=c></input>
     <li>charref: special <input value="asda&notit; I tell you"></input>
     <li>charref: non-special <input value=asda&notin*=c></input>

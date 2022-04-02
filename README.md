@@ -167,6 +167,10 @@ Limitations
 Changelog
 ------------
 
+### 1.0.0-rc.3
+
+- Fix a clumsy mistake with passing default prameters that caused the tokens generator to not work.
+
 ### 1.0.0-rc.2
 
 - A few more changes, working up towards a version 1.0.0 release!
